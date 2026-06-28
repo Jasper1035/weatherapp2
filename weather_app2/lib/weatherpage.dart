@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:weather_app2/weather_model.dart';
 import 'package:weather_app2/weather_service.dart';
 import 'package:lottie/lottie.dart';
@@ -56,18 +57,36 @@ class _WeatherpageState extends State<Weatherpage> {
 
   @override
   Widget build(BuildContext context) {
+    if (_weather == null) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(_weather?.cityName ?? 'loading city'),
+            Text(
+              '${_weather?.cityName ?? 'loading city'}, CA, USA',
+              style: GoogleFonts.poppins(fontSize: 30),
+            ),
             const SizedBox(height: 10),
             Lottie.asset(weatherAnimation(_weather?.mainCondition)),
             const SizedBox(height: 20),
-            Text('${_weather?.temparature.round()} ℃'),
+            Text(
+              'Temparature : ${_weather?.temparature.round()} ℉',
+              style: GoogleFonts.poppins(fontSize: 20),
+            ),
             const SizedBox(height: 20),
-            Text(_weather?.mainCondition ?? ''),
+            Text(
+              'Condition : ${_weather?.mainCondition ?? ''}',
+              style: GoogleFonts.poppins(fontSize: 20),
+            ),
+            const SizedBox(height: 20),
+            Text(
+              'Wind Speed : ${_weather!.windSpeed} mp/h',
+              style: GoogleFonts.poppins(fontSize: 20),
+            ),
           ],
         ),
       ),
